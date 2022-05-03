@@ -2,7 +2,7 @@
 
 describe('Test register', () => {
 
-    it.skip('01 - Register with valid data - successful', () =>{
+    it('01 - Register with valid data - successful', () =>{
         cy.visit('/register');
         cy.url().should('include', '/register')
         cy.get('#first-name').type('Romana');
