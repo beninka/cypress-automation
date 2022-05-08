@@ -18,11 +18,15 @@ class CreateGallery {
     get cancelBtn () {
         return cy.get('button[type="submit"]').contains('Cancel');
     }
+    get createHeading (){
+        return cy.get ('h1');
+    }
+
     
     create(title, description, imageUrl) {
-        this.titleInput.type(title);
-        this.descriptionsInput.type(description);
-        this.imagesInput.type(imageUrl);
+        this.titleInput.clear().type(title);
+        this.descriptionsInput.clear().type(description);
+        this.imagesInput.clear().type(imageUrl);
         this.submitBtn.click();
     }
     createMorePic(title, description, imageUrl, secondImageUrl) {
