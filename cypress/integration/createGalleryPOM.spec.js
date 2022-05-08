@@ -1,6 +1,5 @@
 /// <reference types="Cypress" />
 
-import { loginPage } from "../page_objects/loginPage";
 import { createGallery } from "../page_objects/createGallery";
 import { faker } from '@faker-js/faker';
 
@@ -16,22 +15,17 @@ describe('Create Gallery POM', () => {
     }
 
     beforeEach('Visit login page',() => {
-        cy.visit('/login');
-        loginPage.login('romanabenin21@yahoo.com','romanica123');
-        cy.url().should('not.include', '/login');
+        cy.loginViaBackend();
+        cy.visit('/create')
     })
 
     it('01 - Create gallery with all fields empty - negative', () => {
-        cy.visit('/create');
-        cy.url().should('include','/create');
         createGallery.submitBtn.click();
         cy.url().should('include','/create');
 
     })
 
     it('02 - Create gallery with only title filled - negative', () => {
-        cy.visit('/create');
-        cy.url().should('include','/create');
         createGallery.create(
             galleryData.title,
             " ",
@@ -43,8 +37,6 @@ describe('Create Gallery POM', () => {
     })
 
     it('03 - Create gallery without images field - negative', () => {
-        cy.visit('/create');
-        cy.url().should('include','/create');
         createGallery.create(
             galleryData.title,
             galleryData.description,
@@ -59,8 +51,6 @@ describe('Create Gallery POM', () => {
     })
 
     it('04 - Create gallery with invalid url - negative', () => {
-        cy.visit('/create');
-        cy.url().should('include','/create');
         createGallery.create(
             galleryData.title,
             galleryData.description,
@@ -80,8 +70,6 @@ describe('Create Gallery POM', () => {
             url: 'https://gallery-api.vivifyideas.com/api/galleries?page=1&term='
         }).as('allGalleries');
 
-        cy.visit('/create');
-        cy.url().should('include','/create');
         createGallery.cancelBtn.click();
 
         cy.wait('@allGalleries').then(interception=> {
@@ -99,8 +87,6 @@ describe('Create Gallery POM', () => {
             url: 'https://gallery-api.vivifyideas.com/api/galleries'
         }).as('successfullCreate');
 
-        cy.visit('/create');
-        cy.url().should('include','/create');
         createGallery.create(
             galleryData.title,
             " ",
@@ -122,8 +108,6 @@ describe('Create Gallery POM', () => {
             url: 'https://gallery-api.vivifyideas.com/api/galleries'
         }).as('successfullCreate');
 
-        cy.visit('/create');
-        cy.url().should('include','/create');
         createGallery.createHeading.should('have.text', 'Create Gallery');
 
         createGallery.create(
@@ -169,8 +153,6 @@ describe('Create Gallery POM', () => {
             url: 'https://gallery-api.vivifyideas.com/api/galleries'
         }).as('successfullCreate');
 
-        cy.visit('/create');
-        cy.url().should('include','/create');
         createGallery.createMorePic(
             galleryData.title,
             galleryData.description,
