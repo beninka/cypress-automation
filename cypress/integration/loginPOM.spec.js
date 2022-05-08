@@ -2,7 +2,7 @@ import { loginPage } from "../page_objects/loginPage"
 
 describe ('login POM', () => {
 
-    it('login with valid data', () => {
+    it('01 - Login with valid data - successful', () => {
         cy.intercept({
             method: 'POST',
             url: 'https://gallery-api.vivifyideas.com/api/auth/login'
@@ -20,7 +20,7 @@ describe ('login POM', () => {
 
     })
 
-    it('login with invalid password', () => {
+    it('02 - Login with invalid password - negative', () => {
         cy.intercept({
             method: 'POST',
             url: 'https://gallery-api.vivifyideas.com/api/auth/login'
